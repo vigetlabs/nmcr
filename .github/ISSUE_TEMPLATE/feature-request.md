@@ -1,0 +1,28 @@
+---
+name: Feature request
+about: Suggest a new idea or a feature change for this project
+title: ''
+labels: ''
+assignees: haleyjohnso
+
+---
+
+### Overview
+
+* **URL:**
+* **Level of urgency:** [Low, Medium, High]
+* **Is this a new request or is it a change to an existing feature? [new, change]:
+
+### Details
+
+**Is your feature request related to a problem? Please describe.**
+A clear and concise description of what the problem is. Ex. We've discovered the need for [...] 
+
+**Describe the solution you'd like**
+A clear and concise description of what you want to happen.
+
+**Describe alternatives you've considered**
+A clear and concise description of any alternative solutions or features you've considered.
+
+**Additional context**
+Add any other context or screenshots about the feature request here.

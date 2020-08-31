@@ -1,0 +1,13 @@
+/node_modules
+/web/assets
+/web/manifest.json
+/cypress/videos
+/cypress/screenshots
+.DS_Store
+/coverage
+/.env
+/.idea
+/vendor
+/config/dev.php
+/.docker-config/mysql/*.sql
+/tests/_craft/config/project.yaml

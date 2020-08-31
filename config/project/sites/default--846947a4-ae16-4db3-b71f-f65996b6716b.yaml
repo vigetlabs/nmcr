@@ -1,0 +1,8 @@
+baseUrl: $PRIMARY_SITE_URL
+handle: default
+hasUrls: true
+language: en-US
+name: 'NCMR (Upgraded)'
+primary: true
+siteGroup: 5e108f3c-9c26-4b2a-833b-260e8d5f1312
+sortOrder: 1

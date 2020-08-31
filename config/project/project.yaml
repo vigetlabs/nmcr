@@ -1,0 +1,17 @@
+dateModified: 1598912633
+email:
+  fromEmail: lindsey.bradford@viget.com
+  fromName: 'NCMR (Upgraded)'
+  transportType: craft\mail\transportadapters\Sendmail
+system:
+  edition: solo
+  live: true
+  name: 'NCMR (Upgraded)'
+  schemaVersion: 3.5.13
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  requireEmailVerification: true

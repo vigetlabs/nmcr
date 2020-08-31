@@ -1,0 +1,116 @@
+---
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./.docker-config/nginx/Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ssl-certs:/etc/ssl/self-signed
+      - ./web:/var/www/html/web
+
+  mysql:
+    image: mysql:5.7.29
+    volumes:
+      - db:/var/lib/mysql
+      - ./.docker-config/mysql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: nmcrs
+      MYSQL_PASSWORD: nmcrs
+      MYSQL_DATABASE: nmcrs_development
+
+  php:
+    image: nmcrs_php
+    build:
+      context: .
+      dockerfile: ./.docker-config/php/Dockerfile
+    entrypoint: ./.docker-config/php/entrypoint.sh
+    command: [
+      "docker-php-entrypoint",
+      "php-fpm"
+    ]
+    expose:
+      - 9000
+    volumes:
+      - .:/var/www/html:delegated
+      - composer:/var/www/html/vendor
+      - runtime:/var/www/html/storage/runtime
+      - logs:/var/www/html/storage/logs
+    environment:
+      - ENVIRONMENT=dev
+      - DB_DSN=mysql:host=mysql;port=3306;dbname=nmcrs_development
+      - DB_USER=nmcrs
+      - DB_PASSWORD=nmcrs
+      - DB_TABLE_PREFIX=craft_
+      - SECURITY_KEY=asdfasdfasdfasdfasdf
+      - SITE_URL=https://nmcrs.test
+      - AZURE_WEB_ACCOUNT
+      - AZURE_WEB_KEY
+      - AZURE_WEB_CONTAINER
+      - AZURE_WEB_SUBFOLDER
+      - AZURE_WEB_URL
+      - GOOGLE_MAPS_API_KEY
+
+  # yarn:
+  #   build:
+  #     context: .
+  #     dockerfile: ./.docker-config/yarn/Dockerfile
+  #   entrypoint: ./.docker-config/yarn/entrypoint.sh
+  #   command: [
+  #     "yarn",
+  #     "start",
+  #     "--host",
+  #     "0.0.0.0",
+  #     "--https",
+  #     "--cert",
+  #     "/etc/ssl/self-signed/self-signed.crt",
+  #     "--key",
+  #     "/etc/ssl/self-signed/self-signed.key"
+  #   ]
+  #   ports:
+  #     - 8080:8080
+  #   volumes:
+  #     - .:/var/www/html:delegated
+  #     - ssl-certs:/etc/ssl/self-signed
+  #     - yarn:/var/www/html/node_modules
+  #   environment:
+  #     - SITE_URL=https://nmcrs.test
+
+  # mysql_test:
+  #   image: mysql:5.7.29
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_USER: nmcrs
+  #     MYSQL_PASSWORD: nmcrs
+  #     MYSQL_DATABASE: nmcrs_test
+
+  test:
+    image: nmcrs_php
+    volumes:
+      - .:/var/www/html:delegated
+      - composer:/var/www/html/vendor
+      - runtime:/var/www/html/storage/runtime
+      - logs:/var/www/html/storage/logs
+    environment:
+      - ENVIRONMENT=test
+      - DB_DSN=mysql:host=mysql_test;port=3306;dbname=nmcrs_test
+      - DB_USER=nmcrs
+      - DB_PASSWORD=nmcrs
+      - DB_TABLE_PREFIX=craft_
+      - SECURITY_KEY=asdfasdfasdfasdfasdf
+      - SITE_URL=https://nmcrs.test
+
+volumes:
+  db:
+  ssl-certs:
+  # yarn:
+  composer:
+  runtime:
+  logs:

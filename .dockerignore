@@ -1,0 +1,8 @@
+.git
+etc/src
+etc/terraform
+node_modules
+storage
+tmp
+vendor
+web/assets
